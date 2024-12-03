@@ -1,0 +1,37 @@
+<h2>Book List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Rating</th>
+            <th>Notes</th>
+            <th>Date Read</th>
+            <th>Covers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% books.forEach(book => { %>
+        <tr>
+            <td><%= book.title %></td>
+            <td><%= book.author %></td>
+            <td><%= book.rating %></td>
+            <td><%= book.notes %></td>
+            <td><%= new Date(book.date_read).toLocaleDateString() %></td>
+            <td>
+                <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" 
+                     alt="Cover for <%= book.title %>" 
+                     onerror="this.onerror=null; this.src='/path/to/default-cover.jpg';" 
+                     style="width: 100px; height: auto;">
+            </td>
+            <td>
+                <a href="/edit/<%= book.id %>">Edit</a>
+                <form action="/delete/<%= book.id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+<a href="/add">Add a New Book</a>
